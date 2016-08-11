@@ -64,12 +64,14 @@ public class ClassfiySeletPopupWindow extends PopupWindow{
                 break;
             }
         }
+        if (parentPos>-1){
         List<ClassfiyBean.ChildClassfiyBean> cbccbs=mClassfiyBeanList.get(parentPos).getChildClassfiyBeanList();
         for (int j = 0; j < cbccbs.size(); j++) {
             if (key_child.equals(cbccbs.get(j).getBeanID())){
                 childPos=j;
                 break;
             }
+        }
         }
 
         Log.d(TAG, "dealDefaultKey: parentPos:"+parentPos);
@@ -99,8 +101,12 @@ public class ClassfiySeletPopupWindow extends PopupWindow{
         });
         id_rv_left.setAdapter(myRecylerViewAdapter);
         id_rv_left.setLayoutManager(new LinearLayoutManager(mContext));
+        Log.d(TAG, "initView: parentPos:"+parentPos);
         if (parentPos>-1){
             myRecylerViewAdapter.setSelectedState(parentPos);
+        }else{
+            //什么都没选的时候  选中left第一个
+            myRecylerViewAdapter.setSelectedState(0);
         }
 
 
