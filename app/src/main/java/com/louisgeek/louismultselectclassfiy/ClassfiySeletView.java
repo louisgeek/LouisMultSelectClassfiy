@@ -24,6 +24,7 @@ public class ClassfiySeletView extends TextView implements View.OnClickListener{
     ClassfiySeletPopupWindow myPopupwindow;
     String mDefaultKey="";
     String mShowName="";
+    int mListMaxHeight;
     public ClassfiySeletView(Context context) {
         this(context,null,0);
     }
@@ -45,6 +46,10 @@ public class ClassfiySeletView extends TextView implements View.OnClickListener{
         mClassfiyBeanList.addAll(classfiyBeanList);
     }
 
+    public void setListMaxHeight(int listMaxHeight) {
+        mListMaxHeight = listMaxHeight;
+    }
+
     private void initInnerData() {
         mClassfiyBeanList=new ArrayList<>();
         for (int i = 0; i <10 ; i++) {
@@ -55,7 +60,7 @@ public class ClassfiySeletView extends TextView implements View.OnClickListener{
             classfiyBean.setSelected(false);
 
             List<ClassfiyBean.ChildClassfiyBean> cccs=new ArrayList<>();
-            for (int j = 0; j < (int)(Math.random()*10+3); j++) {//Math.random():获取0~1随机数
+            for (int j = 0; j < (int)(Math.random()*10+5); j++) {//Math.random():获取0~1随机数
                 ClassfiyBean.ChildClassfiyBean ccc=new ClassfiyBean.ChildClassfiyBean();
                 ccc.setID(j);
                 ccc.setBeanID("key_"+j);
@@ -94,7 +99,7 @@ public class ClassfiySeletView extends TextView implements View.OnClickListener{
         if (v.getTag()!=null){
             mDefaultKey= String.valueOf(v.getTag());
         }
-         myPopupwindow=new ClassfiySeletPopupWindow(mContext,mClassfiyBeanList,mDefaultKey);
+         myPopupwindow=new ClassfiySeletPopupWindow(mContext,mClassfiyBeanList,mDefaultKey,mListMaxHeight);
 
       //  myPopupwindow.set
 

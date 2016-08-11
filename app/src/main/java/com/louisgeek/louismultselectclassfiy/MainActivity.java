@@ -2,6 +2,7 @@ package com.louisgeek.louismultselectclassfiy;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.LinearLayout;
 
@@ -22,8 +23,21 @@ public class MainActivity extends AppCompatActivity {
          idllClassfiySeletView = (LinearLayout) findViewById(R.id.id_ll_ClassfiySeletView);
         initData();
         ClassfiySeletView id_csv = (ClassfiySeletView) findViewById(R.id.id_csv);
-         id_csv.setupClassfiyBeanList(mClassfiyBeanList);
-         id_csv.setupClassfiyByKey("0_5tuc-1");//key1tuckey2
+
+        //
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        //float density1 = dm.density;
+       // int screenWidth = dm.widthPixels;
+        int screenHeight = dm.heightPixels;
+        Log.d(TAG, "onCreate: screenHeight:"+screenHeight);
+      /*  方法二 DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int screenWidth = dm.widthPixels;
+        int screenHeight = dm.heightPixels;*/
+        id_csv.setListMaxHeight(screenHeight*2/3);
+
+       //  id_csv.setupClassfiyBeanList(mClassfiyBeanList);
+       //  id_csv.setupClassfiyByKey("0_5tuc-1");//key1tuckey2
 
         //id_csv.setupClassfiyByKey("");
        // id_csv.getSelectParentAndChildPosByKey()

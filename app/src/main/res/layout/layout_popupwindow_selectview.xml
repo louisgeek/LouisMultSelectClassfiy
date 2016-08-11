@@ -9,12 +9,14 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/id_rv_left"
         android:layout_weight="1"
+        android:scrollbars="vertical"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/id_rv_right"
         android:layout_weight="2"
+        android:scrollbars="vertical"
         android:background="@color/list_blank_bg"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>
