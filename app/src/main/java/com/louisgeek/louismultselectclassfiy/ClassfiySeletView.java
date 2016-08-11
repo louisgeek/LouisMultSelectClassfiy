@@ -86,9 +86,9 @@ public class ClassfiySeletView extends TextView implements View.OnClickListener{
     @Override
     public void onClick(final View v) {
        // bgShow();
-
-        onContentViewChangeListener.onContentViewShow();
-
+        if (onContentViewChangeListener!=null) {
+            onContentViewChangeListener.onContentViewShow();
+        }
 
 
         if (v.getTag()!=null){
@@ -117,8 +117,9 @@ public class ClassfiySeletView extends TextView implements View.OnClickListener{
             @Override
             public void onDismiss() {
                // bgClear();
-
-                onContentViewChangeListener.onContentViewDismiss();
+                if (onContentViewChangeListener!=null) {
+                    onContentViewChangeListener.onContentViewDismiss();
+                }
             }
         });
 
