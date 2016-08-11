@@ -54,7 +54,7 @@ public class MyRecylerViewLeftAdapter extends RecyclerView.Adapter<RecyclerView.
         }
         this.notifyDataSetChanged();
     }
-    private void setSelectedState(int position){
+    public void setSelectedState(int position){
         clearAllSelectedState();
         mClassfiyBeanList.get(position).setSelected(true);
         //selectedStateMap.put(position,true);

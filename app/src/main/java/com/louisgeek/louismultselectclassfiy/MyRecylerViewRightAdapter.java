@@ -23,7 +23,7 @@ public class MyRecylerViewRightAdapter extends RecyclerView.Adapter<RecyclerView
     public MyRecylerViewRightAdapter(List<ClassfiyBean> classfiyBeanList, int parentPos) {
         mClassfiyBeanList = classfiyBeanList;
         this.parentPos = parentPos;
-            dealThenSetTheAllSelectedState();
+          //  dealThenSetTheAllSelectedState();
     }
 
     private void dealThenSetTheAllSelectedState() {
@@ -101,7 +101,7 @@ public class MyRecylerViewRightAdapter extends RecyclerView.Adapter<RecyclerView
         }else if (holder instanceof MyRecyclerViewViewAllHolder){
             myRecyclerViewViewAllHolder= (MyRecyclerViewViewAllHolder) holder;
             myRecyclerViewViewAllHolder.mTextViewName.setText("全部");
-
+            myRecyclerViewViewAllHolder.itemView.setTag(myRecyclerViewViewAllHolder.mTextViewName.getText());
             myRecyclerViewViewAllHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -135,7 +135,7 @@ public class MyRecylerViewRightAdapter extends RecyclerView.Adapter<RecyclerView
         }
         this.notifyDataSetChanged();
     }
-    private void setNormalSelectedState(int position){
+    public void setNormalSelectedState(int position){
         clearTheAllAndNormalSelectedState();
         mClassfiyBeanList.get(parentPos).getChildClassfiyBeanList().get(position).setSelected(true);
         this.notifyDataSetChanged();
@@ -155,7 +155,7 @@ public class MyRecylerViewRightAdapter extends RecyclerView.Adapter<RecyclerView
         clearNormalSelectedState();
         clearTheAllSelectedState();
     }
-    private void setTheAllSelectedState(int  parentPos){
+    public void setTheAllSelectedState(int  parentPos){
         clearTheAllAndNormalSelectedState();
 
         theAllSelectedStateMap.put(parentPos,true);
