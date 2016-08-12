@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int screenWidth = dm.widthPixels;
         int screenHeight = dm.heightPixels;*/
-        id_csv.setListMaxHeight(screenHeight * 2 / 3);
+        id_csv.setListMaxHeight(screenHeight / 2);
 
         //设置备选数据
         //  id_csv.setupClassfiyBeanList(mClassfiyBeanList);

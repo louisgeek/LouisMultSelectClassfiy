@@ -21,6 +21,10 @@ public class ClassfiySeletPopupWindow extends PopupWindow{
 
     private static final String TAG = "ClassfiySeletPopWin";
     public static final String CUT_TAG = "tuc";
+
+    private int rememberListPosition = 0;
+    private int rememberListOffset = 0;
+
     Context mContext;
     List<ClassfiyBean> mClassfiyBeanList;
     //List<ClassfiyBean.ChildClassfiyBean> mChildClassfiyBeanList;
@@ -85,7 +89,7 @@ public class ClassfiySeletPopupWindow extends PopupWindow{
 
 
         View view= LayoutInflater.from(mContext).inflate(R.layout.layout_popupwindow_selectview,null);
-        RecyclerView id_rv_left = (RecyclerView) view.findViewById(R.id.id_rv_left);
+        final RecyclerView id_rv_left = (RecyclerView) view.findViewById(R.id.id_rv_left);
         RecyclerView id_rv_right = (RecyclerView) view.findViewById(R.id.id_rv_right);
         id_rv_left.addItemDecoration(new HorizontalDividerItemDecoration.Builder(mContext).build());
         id_rv_right.addItemDecoration(new HorizontalDividerItemDecoration.Builder(mContext).build());
@@ -94,14 +98,15 @@ public class ClassfiySeletPopupWindow extends PopupWindow{
         myRecylerViewAdapter.setOnItemClickListener(new MyRecylerViewLeftAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v,int pos) {
-                myRecylerViewRightAdapter.updateParentPos(pos);
-                myRecylerViewRightAdapter.clearTheAllAndNormalSelectedState();
+              myRecylerViewRightAdapter.updateParentPos(pos);
+               //myRecylerViewRightAdapter.clearTheAllAndNormalSelectedState();
                 //每次点击选中右边的
                 // myRecylerViewRightAdapter.setTheAllSelectedState(pos);
                 Log.d(TAG, "QQQ onItemClick: pp pos:"+pos);
             }
         });
         id_rv_left.setAdapter(myRecylerViewAdapter);
+        id_rv_left.setHasFixedSize(true);//位置固定大小 //2016年8月12日16:41:18  这里的用意：不用的话点击后面的item 然后马上会滚动一段，因为如果item的内容会改变view布局大小
         id_rv_left.setLayoutManager(new LinearLayoutManager(mContext));
         Log.d(TAG, "initView: parentPos:"+parentPos);
         if (parentPos>-1){
@@ -171,7 +176,7 @@ public class ClassfiySeletPopupWindow extends PopupWindow{
             Log.d(TAG, "initView: maxHeight:" + maxHeight);
             vlp_left.height = maxHeight;
             vlp_right.height = maxHeight;
-            id_rv_left.setLayoutParams(vlp_left);
+           id_rv_left.setLayoutParams(vlp_left);
             id_rv_right.setLayoutParams(vlp_right);
             //===============================
         }
@@ -184,14 +189,6 @@ public class ClassfiySeletPopupWindow extends PopupWindow{
         this.setBackgroundDrawable(new ColorDrawable(0x00000000));//必须设置  ps:xml bg和这个不冲突
         this.setFocusable(true);//设置后  达到返回按钮先消失popupWindow
         //id_pop_tv.setOnClickListener(this);
-    }
-
-
-    public void refreshData(List<ClassfiyBean> classfiyBeanList) {
-        mClassfiyBeanList.clear();
-        mClassfiyBeanList.addAll(classfiyBeanList);
-        myRecylerViewAdapter.notifyDataSetChanged();
-        myRecylerViewRightAdapter.notifyDataSetChanged();
     }
 
 
