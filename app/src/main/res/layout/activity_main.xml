@@ -12,7 +12,8 @@
 <com.louisgeek.louismultselectclassfiy.ClassfiySeletView
     android:id="@+id/id_csv"
     android:padding="15dp"
-    android:layout_width="wrap_content"
+    android:background="@drawable/shape_list"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"/>
 
 </LinearLayout>

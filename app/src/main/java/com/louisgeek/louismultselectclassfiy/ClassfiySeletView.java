@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 public class ClassfiySeletView extends TextView implements View.OnClickListener{
     Context mContext;
+    private static final String TAG = "ClassfiySeletView";
     List<ClassfiyBean> mClassfiyBeanList;
     int nowPPos=0;
     ClassfiySeletPopupWindow myPopupwindow;
@@ -40,6 +42,10 @@ public class ClassfiySeletView extends TextView implements View.OnClickListener{
         initView();
     }
 
+    /**
+     * classfiyBeanList的子列表设置为null就单纯展示单个列表
+     * @param classfiyBeanList
+     */
     public void setupClassfiyBeanList(List<ClassfiyBean> classfiyBeanList) {
         //myPopupwindow.refreshData(classfiyBeanList);
         mClassfiyBeanList.clear();
@@ -84,7 +90,7 @@ public class ClassfiySeletView extends TextView implements View.OnClickListener{
         }
         this.setOnClickListener(this);
         this.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_keyboard_arrow_down_blue_grey_400_18dp,0);
-        this.setBackgroundResource(R.drawable.shape_list);
+       // this.setBackgroundResource(R.drawable.shape_list);
         this.setSingleLine();
     }
 
@@ -94,7 +100,8 @@ public class ClassfiySeletView extends TextView implements View.OnClickListener{
         if (onContentViewChangeListener!=null) {
             onContentViewChangeListener.onContentViewShow();
         }
-
+        this.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_keyboard_arrow_up_light_green_a400_18dp,0);
+        //
 
         if (v.getTag()!=null){
             mDefaultKey= String.valueOf(v.getTag());
@@ -115,6 +122,7 @@ public class ClassfiySeletView extends TextView implements View.OnClickListener{
             public void onItemSelected(String key, String name) {
                 ClassfiySeletView.this.setText(name);
                 ClassfiySeletView.this.setTag(key);
+                Log.d(TAG, "onItemSelected: key:"+key);
             }
         });
         myPopupwindow.showAsDropDown(v);
@@ -125,6 +133,7 @@ public class ClassfiySeletView extends TextView implements View.OnClickListener{
                 if (onContentViewChangeListener!=null) {
                     onContentViewChangeListener.onContentViewDismiss();
                 }
+                ClassfiySeletView.this.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.ic_keyboard_arrow_down_blue_grey_400_18dp,0);
             }
         });
 
@@ -143,6 +152,7 @@ public class ClassfiySeletView extends TextView implements View.OnClickListener{
         lp.alpha = 1.0f; // 0.0-1.0
         ((Activity) mContext).getWindow().setAttributes(lp);
     }
+
 
     public  interface  OnContentViewChangeListener{
         void onContentViewShow();
@@ -176,6 +186,7 @@ public class ClassfiySeletView extends TextView implements View.OnClickListener{
         if (mDefaultKey==null||mDefaultKey.equals("")){
             return;
         }
+        String hasAllTag="全部";
         if (mDefaultKey.contains(ClassfiySeletPopupWindow.CUT_TAG)){
             String[] keys=mDefaultKey.split(ClassfiySeletPopupWindow.CUT_TAG);
             if (keys!=null&&keys.length>0){
@@ -184,10 +195,12 @@ public class ClassfiySeletView extends TextView implements View.OnClickListener{
                     key_child=keys[1];
                 }
             }
+        }else{
+            //单个列表
+            hasAllTag="";
+            key_parent=mDefaultKey;
         }
-        if (key_parent.equals("")||key_child.equals("")){
-            return;
-        }
+        if (!key_parent.equals("")){
         for (int i = 0; i < mClassfiyBeanList.size(); i++) {
             if (key_parent.equals(mClassfiyBeanList.get(i).getBeanID())){
                 leftName=mClassfiyBeanList.get(i).getName();
@@ -195,18 +208,20 @@ public class ClassfiySeletView extends TextView implements View.OnClickListener{
                 break;
             }
         }
-        List<ClassfiyBean.ChildClassfiyBean> cbccbs=mClassfiyBeanList.get(nowPPos).getChildClassfiyBeanList();
-        for (int j = 0; j < cbccbs.size(); j++) {
-            if (key_child.equals(cbccbs.get(j).getBeanID())){
-                rightName=cbccbs.get(j).getName();
-                break;
+        }
+        if (!key_child.equals("")) {
+            List<ClassfiyBean.ChildClassfiyBean> cbccbs = mClassfiyBeanList.get(nowPPos).getChildClassfiyBeanList();
+            for (int j = 0; j < cbccbs.size(); j++) {
+                if (key_child.equals(cbccbs.get(j).getBeanID())) {
+                    rightName = cbccbs.get(j).getName();
+                    break;
+                }
             }
         }
-
         if (leftName.equals("")&&rightName.equals("")){
             mShowName="";
         }else if (rightName.equals("")){
-            mShowName="全部"+leftName;
+            mShowName=hasAllTag+leftName;
         }else{
             mShowName=rightName;
         }
