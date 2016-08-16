@@ -170,7 +170,7 @@ public class ClassfiySeletView extends TextView implements View.OnClickListener{
      *
      * @param key
      */
-    public void setupClassfiyByKey(String key){
+    public void setupSelectedByKey(String key){
         mDefaultKey=key;
         //
         dealKeyForName();

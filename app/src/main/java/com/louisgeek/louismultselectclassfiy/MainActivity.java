@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
         /**
          * 设置备选数据  单列表
          */
-       //### id_csv.setupClassfiyBeanList(classfiyBeanList);
-       //###  id_csv.setupClassfiyByKey("key_3");
+       id_csv.setupClassfiyBeanList(classfiyBeanList);
+       //###  id_csv.setupSelectedByKey("key_3");
 
         id_csv.setOnContentViewChangeListener(new ClassfiySeletView.OnContentViewChangeListener() {
             @Override
