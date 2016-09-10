@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i <15 ; i++) {
             ClassfiyBean classfiyBean=new ClassfiyBean();
             classfiyBean.setID(i);
-            classfiyBean.setBeanID("key_"+i);
+            classfiyBean.setBeanID(ClassfiySeletView.FIX_KEY_DEFAULT+i);
             classfiyBean.setName("选项"+i);
             classfiyBean.setChildClassfiyBeanList(null);
             classfiyBeanList.add(classfiyBean);
@@ -52,15 +52,14 @@ public class MainActivity extends AppCompatActivity {
         id_csv.setListMaxHeight(screenHeight / 2);
 
         //设置备选数据
-        //### id_csv.setupClassfiyBeanList(mClassfiyBeanList);
+        id_csv.setupClassfiyBeanList(mClassfiyBeanList);
         //默认选择的key  -1代表选择父类的全部
        //### id_csv.setupClassfiyByKey("0_5tuc-1");//key1tuckey2
-
         /**
          * 设置备选数据  单列表
          */
-       id_csv.setupClassfiyBeanList(classfiyBeanList);
-       //###  id_csv.setupSelectedByKey("key_3");
+        //### id_csv.setupClassfiyBeanList(classfiyBeanList);
+       //###  id_csv.setupSelectedByKey(ClassfiySeletView.FIX_KEY_DEFAULT+"3");
 
         id_csv.setOnContentViewChangeListener(new ClassfiySeletView.OnContentViewChangeListener() {
             @Override
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         int endColor = isBack?defaultColor_end:defaultColor_start;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             ObjectAnimator anim= ObjectAnimator.ofArgb(view,"backgroundColor",startColor,endColor);
-            anim.setDuration(300);
+            anim.setDuration(200);
             anim.start();
         }else{
             view.setBackgroundColor(endColor);

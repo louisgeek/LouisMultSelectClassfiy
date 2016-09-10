@@ -23,6 +23,8 @@ public class ClassfiySeletView extends TextView implements View.OnClickListener{
     private static final String TAG = "ClassfiySeletView";
     List<ClassfiyBean> mClassfiyBeanList;
     int nowPPos=0;
+    public static final String FIX_KEY_DEFAULT = "key_";
+    //private String fix_key=FIX_KEY_DEFAULT;
     ClassfiySeletPopupWindow myPopupwindow;
     String mDefaultKey="";
     String mShowName="";
@@ -257,7 +259,7 @@ public class ClassfiySeletView extends TextView implements View.OnClickListener{
      *
      * @return
      */
-    public String  getClassfiyKey(){
+    public String  getSelectedClassfiyKey(){
         String key="";
         if (this.getTag()!=null)
         {
@@ -265,6 +267,19 @@ public class ClassfiySeletView extends TextView implements View.OnClickListener{
         }
         return  key;
     }
+    /**
+     *
+     * @return
+     */
+    public String  getSelectedClassfiyKeyWithoutFix(){
+        String key=getSelectedClassfiyKey();
+        String tempKey=key;
+        if (tempKey!=null&&!tempKey.equals("")&&tempKey.contains(FIX_KEY_DEFAULT)){
+            key=tempKey.replace(FIX_KEY_DEFAULT,"");
+        }
+        return  key;
+    }
+
 
 
 
